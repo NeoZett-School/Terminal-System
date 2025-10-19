@@ -339,7 +339,7 @@ class Terminal:
 
     class ProgressBar(AnimatedString):
         def __init__(self, formatted_string: str, token: str, length: int) -> Self:
-            super().__init__([])
+            super().__init__(["[Progress bar] An error has likely occured. Please review the code once again."])
             self.formatted_string = formatted_string
             self.token = token
             self.length = length
