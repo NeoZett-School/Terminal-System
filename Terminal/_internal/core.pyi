@@ -141,13 +141,13 @@ class Terminal:
         
         @overload
         @staticmethod
-        def input(prompt: object, /) -> str:
+        def input(prompt: object = "", /) -> str:
             """Simplified input method."""
             ...
         
         @overload
         @staticmethod
-        def input(prompt: object, print_method: Optional[Callable[..., Any]] = None) -> str:
+        def input(prompt: object = "", print_method: Optional[Callable[..., Any]] = None) -> str:
             """Simplified input method."""
             ...
         
@@ -393,6 +393,13 @@ class Terminal:
         """Retrieve a color with the given rgb as background."""
         ...
     
+    @overload
+    @classmethod
+    def add_color(cls, color: Color, /) -> None:
+        """Add a new color. Optionally, specify the tag."""
+        ...
+    
+    @overload
     @classmethod
     def add_color(cls, color: Color, tag: Optional[str] = None) -> None:
         """Add a new color. Optionally, specify the tag."""
