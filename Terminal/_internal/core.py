@@ -276,7 +276,7 @@ class Terminal:
             clear_screen: Union[bool, Tuple[bool, bool]] = False,
         ) -> None:
             before, after = (prefix_suffix + ("", ""))[:2]
-            Terminal.print(self, sep=sep, end=end, flush=flush, color=color, clear_screen=clear_screen, prefix=before, suffix=after)
+            Terminal.print(self, sep=sep, end=end, flush=flush, color=color, clear_screen=clear_screen, prefix=before + sep, suffix=sep + after)
     
     class AnimatedString(IOString): 
         def __init__(self, frames: List[str], init: int = 0) -> Self:
@@ -313,7 +313,7 @@ class Terminal:
             clear_screen: Union[bool, Tuple[bool, bool]] = False,
         ) -> None:
             before, after = (prefix_suffix + ("", ""))[:2]
-            Terminal.print(self.frames[index], sep=sep, end=end, flush=flush, color=color, clear_screen=clear_screen, prefix=before, suffix=after)
+            Terminal.print(self.frames[index], sep=sep, end=end, flush=flush, color=color, clear_screen=clear_screen, prefix=before + sep, suffix=sep + after)
         
         def input(
             self,

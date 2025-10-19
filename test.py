@@ -1,5 +1,5 @@
 from Terminal import *
 
-print("$greHi!$res", color=True)
-text = Simple.input("Hi!:")
-print(text)
+name = IOString("Hello")
+name.input("Select a name: ")
+name.print
