@@ -1,11 +1,11 @@
-from typing import Iterable, Tuple, List, Optional, Callable, Literal, Union, Self, TypeVar, Any, overload
+from typing import Iterable, Tuple, List, Optional, Callable, Literal, Union, Self, TypeVar, Any
 from .enums import Mode
 import colorama
 import sys
 import os
 import re
 
-__all__ = ("Terminal",)
+__all__ = ("Terminal", "Manager", "ClearScreenArg")
 
 T = TypeVar("T", bound="Terminal.Color")
 ClearScreenArg = Union[bool, Tuple[bool, bool], Tuple[bool, bool, bool]]
@@ -401,7 +401,7 @@ class Terminal:
         cls._regex = re.compile(cls.pattern)
     
     @classmethod
-    def new_env(cls, prefix: Optional["Terminal.Color"] = None, suffix: Optional["Terminal.Color"] = None) -> Manager.Environment:
+    def new_env(cls, prefix: Optional[Color] = None, suffix: Optional[Color] = None) -> Manager.Environment:
         return cls.manager.new_env(prefix, suffix)
     
     @classmethod
@@ -418,7 +418,7 @@ class Terminal:
             os.system("cls" if os.name == "nt" else "clear")
     
     @classmethod
-    def lookup(cls, tag: str) -> Optional["Terminal.Color"]:
+    def lookup(cls, tag: str) -> Optional[Color]:
         if not Terminal._initialized:
             Terminal.colorama_init()
             
@@ -427,22 +427,22 @@ class Terminal:
         return Terminal.ColorKeys[tag]
     
     @classmethod
-    def rgb(cls, r: int, g: int, b: int) -> "Terminal.Color":
+    def rgb(cls, r: int, g: int, b: int) -> Color:
         return cls.Color.rgb(r, g, b)
     
     @classmethod
-    def bg_rgb(cls, r: int, g: int, b: int) -> "Terminal.Color":
+    def bg_rgb(cls, r: int, g: int, b: int) -> Color:
         return cls.Color.bg_rgb(r, g, b)
     
     @classmethod
-    def add_color(cls, color: "Terminal.Color", tag: Optional[str] = None) -> None:
+    def add_color(cls, color: Color, tag: Optional[str] = None) -> None:
         tag = tag or color.tag
         if tag is None:
             raise KeyError("A tag must be provided either via parameter or in the Color object")
         cls.ColorKeys[tag] = color
     
     @classmethod
-    def pop_color(cls, tag: str, default: Optional["Terminal.Color"] = None) -> str:
+    def pop_color(cls, tag: str, default: Optional[Color] = None) -> str:
         return cls.ColorKeys.pop(tag, default)
     
     @classmethod
@@ -516,12 +516,12 @@ class Terminal:
         return sys.stdin.read(n)
     
     @classmethod
-    def set_color(cls, color: "Terminal.Color") -> None:
+    def set_color(cls, color: Color) -> None:
         sys.stdout.write(str(color))
         sys.stdout.flush()
     
     @staticmethod
-    def log(level: Literal["INFO", "WARN", "ERROR"], *msg: object, color: bool = True):
+    def log(level: Literal["INFO", "WARN", "ERROR"], *msg: object, color: bool = True) -> None:
         prefix = f"[{level.upper()}]"
         if color:
             prefix = {

@@ -346,7 +346,7 @@ class Terminal:
         ...
     
     @classmethod
-    def new_env(cls, prefix: Optional["Terminal.Color"] = None, suffix: Optional["Terminal.Color"] = None) -> Manager.Environment:
+    def new_env(cls, prefix: Optional[Color] = None, suffix: Optional[Color] = None) -> Manager.Environment:
         """Create a new environment."""
         ...
     
@@ -368,22 +368,22 @@ class Terminal:
         ...
     
     @classmethod
-    def lookup(cls, tag: str) -> Optional["Terminal.Color"]:
+    def lookup(cls, tag: str) -> Optional[Color]:
         """Lookup a color tag."""
         ...
     
     @classmethod
-    def rgb(cls, r: int, g: int, b: int) -> "Terminal.Color":
+    def rgb(cls, r: int, g: int, b: int) -> Color:
         """Retrieve a color with the given rgb."""
         ...
     
     @classmethod
-    def bg_rgb(cls, r: int, g: int, b: int) -> "Terminal.Color":
+    def bg_rgb(cls, r: int, g: int, b: int) -> Color:
         """Retrieve a color with the given rgb as background."""
         ...
     
     @classmethod
-    def add_color(cls, color: "Terminal.Color", tag: Optional[str] = None) -> None:
+    def add_color(cls, color: Color, tag: Optional[str] = None) -> None:
         """Add a new color. Optionally, specify the tag."""
         ...
     
@@ -395,7 +395,7 @@ class Terminal:
     
     @overload
     @classmethod
-    def pop_color(cls, tag: str, default: Optional["Terminal.Color"], /) -> str:
+    def pop_color(cls, tag: str, default: Optional[Color], /) -> str:
         """Pop a color by the given tag. Provide a default in case the tag cant be found."""
         ...
     
@@ -462,12 +462,12 @@ class Terminal:
         ...
     
     @classmethod
-    def set_color(cls, color: "Terminal.Color") -> None:
+    def set_color(cls, color: Color) -> None:
         """Immediately set console color without newline."""
         ...
     
     @staticmethod
-    def log(level: Literal["INFO", "WARN", "ERROR"], *msg: object, color: bool = True):
+    def log(level: Literal["INFO", "WARN", "ERROR"], *msg: object, color: bool = True) -> None:
         """Log message with a provided level."""
         ...
     
