@@ -1,12 +1,19 @@
 from Terminal import *
 
-set_env_mode("Single")
+NOTICE_COLOR = lookup("$gre")
+notice_env = new_env(NOTICE_COLOR,lookup("$res"))
+notice_builder = Builder()
+def set_notice(*value: str) -> None:
+    notice_builder.clear()
+    notice_builder.print("-----------------------------")
+    for text in value:
+        notice_builder.print(f"{notice_env.prefix}|$res", text)
+    notice_builder.print(f"{notice_env.prefix}-----------------------------")
+def notify() -> None:
+    notice_env.enable()
+    notice_builder.render(end="", color=True)
+    notice_env.disable()
 
-page = Builder()
-page.print("Hello!")
-page.print("How are you doin?")
 
-env = new_env(lookup("$gre"),lookup("$res"))
-env.enable()
-page.render(end="")
-env.disable()
+set_notice("Hello world!", "", "This is Neo. Say hi!")
+notify()
