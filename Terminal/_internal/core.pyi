@@ -467,7 +467,7 @@ class Terminal:
         ...
     
     @staticmethod
-    def log(level: Literal["INFO", "WARN", "ERROR"], *msg, color=True):
+    def log(level: Literal["INFO", "WARN", "ERROR"], *msg: object, color: bool = True):
         """Log message with a provided level."""
         ...
     

@@ -520,7 +520,7 @@ class Terminal:
         sys.stdout.flush()
     
     @staticmethod
-    def log(level: Literal["INFO", "WARN", "ERROR"], *msg, color=True):
+    def log(level: Literal["INFO", "WARN", "ERROR"], *msg: object, color: bool = True):
         prefix = f"[{level.upper()}]"
         if color:
             prefix = {
