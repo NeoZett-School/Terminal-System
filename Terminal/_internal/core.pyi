@@ -10,8 +10,8 @@ T = TypeVar("T", bound="Terminal.Color")
 ClearScreenArg = Union[bool, Tuple[bool, bool], Tuple[bool, bool, bool]]
 
 class History:
+    formattings: List[str]
     inputs: List[str]
-    prints: List[str]
 
 class Manager:
     """The manager handles terminal environments."""

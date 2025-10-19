@@ -1,3 +1,4 @@
 from Terminal import *
 
-print("$redHi!$res", color=True)
+print("$greHi!$res", color=True)
+print(History.prints)

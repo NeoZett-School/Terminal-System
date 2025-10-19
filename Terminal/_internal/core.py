@@ -16,8 +16,8 @@ T = TypeVar("T", bound="Terminal.Color")
 ClearScreenArg = Union[bool, Tuple[bool, bool], Tuple[bool, bool, bool]]
 
 class History: 
+    formattings = []
     inputs = []
-    prints = []
 
 class Manager:
     class Environment:
@@ -465,6 +465,7 @@ class Terminal:
 
         suffix = suffix + (end or "")
         text = cls.manager.format((sep or " ").join(map(str, values)))
+        History.formattings.append(text)
         if not color:
             return prefix + text + suffix
         
@@ -503,7 +504,6 @@ class Terminal:
             elif isinstance(clear_screen, bool):
                 Terminal.clear(ansi=False)
         text = Terminal.format(*values, sep=sep, end=end, color=color, prefix=prefix, suffix=suffix)
-        History.prints.append(text)
         sys.stdout.write(text)
         if flush:
             sys.stdout.flush()
