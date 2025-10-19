@@ -251,6 +251,9 @@ class Terminal:
         def __str__(self) -> str:
             return self.value
         
+        def clear(self) -> None:
+            self.value = ""
+        
         def input(
             self,
             *prompt: object,
@@ -343,6 +346,9 @@ class Terminal:
                 input_text=input_text, 
                 n=n
             )
+        
+        def clear(self) -> None:
+            self.frames[self.index] = ""
 
     class ProgressBar(AnimatedString):
         def __init__(self, formatted_string: str, token: str, length: int) -> Self:

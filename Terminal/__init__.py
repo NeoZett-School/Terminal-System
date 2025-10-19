@@ -3,7 +3,7 @@ The Terminal provides all features you will ever need when building your CLI app
 """
 
 from typing import Optional, Literal, Union
-from ._internal import Terminal, Mode
+from ._internal import Builder, FileSystem, Terminal, Mode
 from ._internal.core import History, Manager, ClearScreenArg
 from .tools.sync_stubs import sync_docs
 from pathlib import Path
@@ -127,6 +127,8 @@ class Module:
     Terminal = Terminal
     Simple = Terminal.Simple
     History = History
+    Builder = Builder
+    FileSystem = FileSystem
     manager = Terminal.manager
 
     IOString = Terminal.IOString

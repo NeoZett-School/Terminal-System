@@ -1,11 +1,14 @@
 from typing import Type, Optional, Union, Literal, overload
-from ._internal import Terminal as _Terminal, Mode as _Mode
+from ._internal import Builder as _Builder, FileSystem as _FileSystem, Terminal as _Terminal, Mode as _Mode
 from ._internal.core import History as _History, Manager, ClearScreenArg
 
 Mode: Type[_Mode]
 Terminal: Type[_Terminal]
 Simple: Type[_Terminal.Simple]
 History: Type[_History]
+Builder: Type[_Builder]
+FileSystem: Type[_FileSystem]
+
 manager: Manager
 
 def terminal_init() -> None: 

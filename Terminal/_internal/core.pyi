@@ -235,6 +235,10 @@ class Terminal:
         def __str__(self) -> str:
             ...
         
+        def clear(self) -> None:
+            """Clear the IO string."""
+            ...
+        
         def input(
             self,
             *prompt: object,
@@ -319,6 +323,10 @@ class Terminal:
             n: int = -1
         ) -> None:
             """Replace current frame with user input."""
+            ...
+        
+        def clear(self) -> None:
+            """Clear the current frame."""
             ...
     
     class ProgressBar(AnimatedString):
