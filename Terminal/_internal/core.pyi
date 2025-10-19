@@ -378,7 +378,7 @@ class Terminal:
         ...
     
     @classmethod
-    def set_env_mode(cls, mode: Union[Mode, str] = Mode.SINGLE) -> None:
+    def set_env_mode(cls, mode: Union[Mode, Literal["Single", "Multiple"]] = Mode.SINGLE) -> None:
         """Set the environment mode (Single or Multiple). This affects how colors are rendered."""
         ...
     

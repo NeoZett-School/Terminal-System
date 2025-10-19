@@ -427,7 +427,7 @@ class Terminal:
         return cls.manager.new_env(prefix, suffix)
     
     @classmethod
-    def set_env_mode(cls, mode: Union[Mode, str] = Mode.SINGLE) -> None:
+    def set_env_mode(cls, mode: Union[Mode, Literal["Single", "Multiple"]] = Mode.SINGLE) -> None:
         cls.manager.mode = Mode.get(mode)
     
     @staticmethod

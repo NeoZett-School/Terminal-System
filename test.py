@@ -1,11 +1,10 @@
 from Terminal import *
-from pathlib import Path
 
-manager = FileSystem.FileManager(FileSystem.Directory.load(Path("test")))
-manager.print()
-manager.input()
-manager.print()
-manager.input()
-manager.print()
-manager.input()
-manager.print()
+set_env_mode("")
+
+page = Builder()
+page.print("Hello!")
+page.print("How are you doin?")
+
+env = new_env(lookup("$gre"),lookup("$res"))
+page.render(end="")
