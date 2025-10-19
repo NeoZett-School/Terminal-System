@@ -135,4 +135,4 @@ class Module:
 
     terminal_init()
 
-sys.modules[__name__] = Module # We just need to find a way to fix the type checkers now!
+sys.modules[__name__] = Module
