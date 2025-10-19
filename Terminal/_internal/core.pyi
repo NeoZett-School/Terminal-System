@@ -61,6 +61,10 @@ class Manager:
             def disable(self) -> None:
                 """Disable this environment."""
                 ...
+            
+            def reset(self) -> None:
+                """Reset this environment."""
+                ...
         
         def __init__(
             self, 
@@ -95,6 +99,10 @@ class Manager:
         
         def format(self, text: str) -> str:
             """Format a text."""
+            ...
+        
+        def reset(self) -> None:
+            """Reset this environment."""
             ...
     
     def __init__(self) -> Self:

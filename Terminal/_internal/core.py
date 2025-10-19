@@ -46,6 +46,9 @@ class Manager:
             
             def disable(self) -> None:
                 self._env.disable()
+            
+            def reset(self) -> None:
+                self._env.reset()
 
         def __init__(
             self, 
@@ -87,6 +90,10 @@ class Manager:
         def format(self, text: str) -> str:
             self.formatted.append(text)
             return self.prefix + text + self.suffix
+        
+        def reset(self) -> None:
+            self.formatted = []
+            self.active = False
 
     def __init__(self) -> Self:
         self.env_stack = []
