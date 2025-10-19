@@ -11,5 +11,3 @@ class FileSystem:
     Directory: Type[Directory]
     FileManager: Type[FileManager]
     ItemType: Type[ItemType]
-
-__all__ = ("FileSystem",)

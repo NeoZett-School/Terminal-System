@@ -1,6 +1,8 @@
 from typing import Optional
 from .core import Terminal, ClearScreenArg
 
+__all__ = ("Builder",)
+
 class Builder:
     def __init__(self, value: str = "") -> None:
         self.value = value
