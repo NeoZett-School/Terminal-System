@@ -2,7 +2,7 @@
 The Terminal provides all features you will ever need when building your CLI applications.
 """
 
-from typing import Callable, Optional, Literal, Union
+from typing import Optional, Literal, Union
 from ._internal import Terminal, Mode
 from ._internal.core import History, Manager, ClearScreenArg
 from .tools.sync_stubs import sync_docs

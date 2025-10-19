@@ -1,4 +1,4 @@
-from typing import Any, Callable, Type, Optional, Union, Literal, overload
+from typing import Type, Optional, Union, Literal, overload
 from ._internal import Terminal as _Terminal, Mode as _Mode
 from ._internal.core import History as _History, Manager, ClearScreenArg
 
