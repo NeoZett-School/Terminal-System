@@ -131,7 +131,7 @@ class Module:
 
     IOString = Terminal.IOString
     AnimatedString = Terminal.AnimatedString
-    Progressbar = Terminal.ProgressBar
+    ProgressBar = Terminal.ProgressBar
 
     terminal_init()
 
