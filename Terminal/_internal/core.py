@@ -143,8 +143,8 @@ class Terminal:
         @staticmethod
         def input(prompt: object, print_method: Optional[Callable[..., Any]] = None) -> str:
             if print_method:
-                print_method(prompt)
-            return input("" if print_method else prompt)
+                print_method(str(prompt))
+            return input(str("" if print_method else prompt))
         
         @staticmethod
         def clear() -> None:
