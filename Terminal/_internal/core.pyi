@@ -139,8 +139,15 @@ class Terminal:
             """Simplified print method, accepts any objects."""
             ...
         
+        @overload
         @staticmethod
-        def input(prompt: str, print_method: Optional[Callable[..., Any]] = None) -> str:
+        def input(prompt: object, /) -> str:
+            """Simplified input method."""
+            ...
+        
+        @overload
+        @staticmethod
+        def input(prompt: object, print_method: Optional[Callable[..., Any]] = None) -> str:
             """Simplified input method."""
             ...
         

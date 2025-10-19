@@ -141,7 +141,7 @@ class Terminal:
                 sys.stdout.flush()
         
         @staticmethod
-        def input(prompt: str, print_method: Optional[Callable[..., Any]] = None) -> str:
+        def input(prompt: object, print_method: Optional[Callable[..., Any]] = None) -> str:
             if print_method:
                 print_method(prompt)
             return input("" if print_method else prompt)
