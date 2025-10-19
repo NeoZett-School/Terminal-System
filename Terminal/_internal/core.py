@@ -1,4 +1,5 @@
-from typing import Iterable, Tuple, List, Dict, Optional, Callable, Literal, Union, Self, TypeVar, Any, overload
+from typing import Iterable, Tuple, List, Optional, Callable, Literal, Union, Self, TypeVar, Any, overload
+from .enums import Mode
 import colorama
 import sys
 import os
@@ -80,7 +81,7 @@ class Manager:
 
     def __init__(self) -> Self:
         self.env_stack = []
-        self.mode = "Single"
+        self.mode = Mode.SINGLE
     
     @property
     def active(self) -> bool:
@@ -95,12 +96,12 @@ class Manager:
         if not self.active:
             return text
         match self.mode:
-            case "Single":
+            case Mode.SINGLE:
                 index = -1
                 while self.env_stack[index].active == False:
                     index -= 1
                 text = self.env_stack[index].format(text)
-            case "Multiple":
+            case Mode.MULTIPLE:
                 for env in self.env_stack:
                     if not env.active: continue
                     text = env.format(text)
@@ -404,8 +405,8 @@ class Terminal:
         return cls.manager.new_env(prefix, suffix)
     
     @classmethod
-    def set_env_mode(cls, mode: Literal["Single", "Multiple"] = "Single") -> None:
-        cls.manager.mode = mode
+    def set_env_mode(cls, mode: Union[Mode, str] = Mode.SINGLE) -> None:
+        cls.manager.mode = Mode.get(mode)
     
     @staticmethod
     def clear(*, ansi: bool = False, flush: bool = True) -> None:

@@ -1,9 +1,9 @@
-"""The core."""
+"""
+The core features for the terminal.
+"""
 
 from typing import Iterable, Tuple, List, Dict, Optional, Callable, Literal, Union, Self, TypeVar, Any, overload
-import colorama
-import sys
-import os
+from .enums import Mode
 import re
 
 T = TypeVar("T", bound="Terminal.Color")
@@ -13,7 +13,7 @@ class Manager:
     """The manager handles terminal environments."""
 
     env_stack: List[Manager.Environment]
-    mode: Literal["Single", "Multiple"]
+    mode: Mode
 
     class Environment:
         """An environment contain vital details and schematics for your terminal."""
@@ -351,7 +351,7 @@ class Terminal:
         ...
     
     @classmethod
-    def set_env_mode(cls, mode: Literal["Single", "Multiple"] = "Single") -> None:
+    def set_env_mode(cls, mode: Union[Mode, str] = Mode.SINGLE) -> None:
         """Set the environment mode (Single or Multiple). This affects how colors are rendered."""
         ...
     
