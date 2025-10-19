@@ -5,10 +5,19 @@ import sys
 import os
 import re
 
-__all__ = ("Terminal", "Manager", "ClearScreenArg")
+__all__ = (
+    "History", 
+    "ClearScreenArg", 
+    "Manager", 
+    "Terminal", 
+)
 
 T = TypeVar("T", bound="Terminal.Color")
 ClearScreenArg = Union[bool, Tuple[bool, bool], Tuple[bool, bool, bool]]
+
+class History: 
+    inputs = []
+    prints = []
 
 class Manager:
     class Environment:
@@ -494,6 +503,7 @@ class Terminal:
             elif isinstance(clear_screen, bool):
                 Terminal.clear(ansi=False)
         text = Terminal.format(*values, sep=sep, end=end, color=color, prefix=prefix, suffix=suffix)
+        History.prints.append(text)
         sys.stdout.write(text)
         if flush:
             sys.stdout.flush()
@@ -512,8 +522,11 @@ class Terminal:
         if prompt: # We may only use input_text
             Terminal.print(*prompt, sep=sep, end=end, flush=flush, color=color, clear_screen=clear_screen)
         if n == -1:
-            return input(input_text or "")
-        return sys.stdin.read(n)
+            text = input(input_text or "")
+        else:
+            text = sys.stdin.read(n)
+        History.inputs.append(text)
+        return text
     
     @classmethod
     def set_color(cls, color: Color) -> None:

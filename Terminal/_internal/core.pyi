@@ -9,6 +9,10 @@ import re
 T = TypeVar("T", bound="Terminal.Color")
 ClearScreenArg = Union[bool, Tuple[bool, bool], Tuple[bool, bool, bool]]
 
+class History:
+    inputs: List[str]
+    prints: List[str]
+
 class Manager:
     """The manager handles terminal environments."""
 

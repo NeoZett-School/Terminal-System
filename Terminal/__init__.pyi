@@ -1,10 +1,11 @@
-from typing import Any, Type, Optional, Union, Literal, overload
+from typing import Any, Callable, Type, Optional, Union, Literal, overload
 from ._internal import Terminal as _Terminal, Mode as _Mode
-from ._internal.core import Manager, ClearScreenArg
+from ._internal.core import History as _History, Manager, ClearScreenArg
 
 Mode: Type[_Mode]
 Terminal: Type[_Terminal]
 Simple: Type[_Terminal.Simple]
+History: Type[_History]
 manager: Manager
 
 def terminal_init() -> None: 
@@ -92,6 +93,7 @@ def progress_bar(
     end: Optional[str] = "", color: bool = True
 ) -> str:
     """Build a new progress bar."""
+    ...
 
 IOString: Type[_Terminal.IOString]
 AnimatedString: Type[_Terminal.AnimatedString]

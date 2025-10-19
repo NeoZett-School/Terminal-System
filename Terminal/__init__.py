@@ -2,10 +2,14 @@
 The Terminal provides all features you will ever need when building your CLI applications.
 """
 
-from typing import Optional, Literal, Union
+from typing import Callable, Optional, Literal, Union
 from ._internal import Terminal, Mode
-from ._internal.core import Manager, ClearScreenArg
+from ._internal.core import History, Manager, ClearScreenArg
+from .tools.sync_stubs import sync_docs
+from pathlib import Path
 import sys
+
+sync_docs(Path("Terminal/_internal/core.pyi"), Path("Terminal/__init__.pyi"))
 
 __all__ = (
     "Module.terminal_init",
@@ -13,6 +17,7 @@ __all__ = (
     "Module.Mode",
     "Module.Terminal",
     "Module.Simple",
+    "Module.History",
     "Module.manager",
     "Module.print",
     "Module.input",
@@ -22,10 +27,10 @@ __all__ = (
     "Module.log",
     "Module.new_env",
     "Module.set_env_mode",
-    "Module.build_progress_bar",
+    "Module.build_progress_bar", 
     "Module.IOString",
     "Module.AnimatedString",
-    "Module.ProgressBar"
+    "Module.ProgressBar",
 )
 
 class Module:
@@ -121,7 +126,9 @@ class Module:
     Mode = Mode
     Terminal = Terminal
     Simple = Terminal.Simple
+    History = History
     manager = Terminal.manager
+
     IOString = Terminal.IOString
     AnimatedString = Terminal.AnimatedString
     Progressbar = Terminal.ProgressBar
