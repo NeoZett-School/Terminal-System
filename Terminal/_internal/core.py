@@ -580,15 +580,19 @@ class Terminal:
         sys.stdout.flush()
     
     @staticmethod
-    def log(format: str = "[[level]] [msg]", level: Literal["INFO", "WARN", "ERROR"] = "INFO", *msg: object, time_format: str = "%H:%M", color: bool = True) -> None:
-        if Terminal.blocking: return
+    def log(
+        format: str = "[[level]] [msg]", level: Literal["INFO", "WARN", "ERROR"] = "INFO", *msg: object, time_format: str = "%H:%M", color: bool = True
+    ) -> None:
         text = format.replace("[time]", datetime.datetime.now().strftime(time_format)).replace("[level]", Config.LOGGING.COLORS[level]+level+"$res" if color else level).replace("[msg]", " ".join([str(v) for v in msg]))
-        Terminal.print(text, color=color)
 
-        if not Config.LOGGING.LOG_FILE_PATH or not Terminal._initialized: return
+        if Config.LOGGING.LOG_FILE_PATH and Terminal._initialized: 
+            clean_text = Terminal.strip_ansi(Terminal._regex.sub('', text))+"\n"
+            with open(Config.LOGGING.LOG_FILE_PATH, "a") as f:
+                f.write(clean_text)
         
-        with open(Config.LOGGING.LOG_FILE_PATH, "a") as f:
-            f.write(Terminal.strip_ansi(Terminal._regex.sub('', text))+"\n")
+        if Terminal.blocking: return
+        
+        Terminal.print(text, color=color)
     
     @staticmethod
     def space() -> None:
