@@ -2,7 +2,7 @@
 The Terminal provides all features you will ever need when building your CLI applications.
 """
 
-from typing import Optional, Literal, Union
+from typing import Tuple, Optional, Literal, Union
 from ._internal import Utils, AnsiColor, AnsiCursor, Builder, FileSystem, Terminal, Mode
 from ._internal.core import History, Manager, ClearScreenArg
 from .tools.sync_stubs import sync_docs
@@ -98,8 +98,10 @@ class Module:
         return Terminal.lookup(tag)
     
     @staticmethod
-    def log(level: Literal["INFO", "WARN", "ERROR"], *msg: object, color: bool = True) -> None:
-        Terminal.log(level, *msg, color=color)
+    def log(
+        format: str = "[[level]] [msg]", level: Literal["INFO", "WARN", "ERROR"] = "INFO", *msg: object, time_format: str = "%H:%M", color: bool = True
+    ) -> None:
+        Terminal.log(format, level, *msg, time_format=time_format, color=color)
     
     @staticmethod
     def new_env(prefix: Optional[Terminal.Color] = None, suffix: Optional[Terminal.Color] = None) -> Manager.Environment:
@@ -122,6 +124,12 @@ class Module:
             has, need, 
             end, color 
         )
+
+    def strip_ansi(cls, text: str) -> str:
+        return Terminal.strip_ansi(text)
+
+    def get_size() -> Tuple[int, int]:
+        return Terminal.get_size()
 
     Mode = Mode
     Terminal = Terminal

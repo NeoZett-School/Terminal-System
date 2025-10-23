@@ -1,4 +1,4 @@
-from typing import Type, Optional, Union, Literal, overload
+from typing import Tuple, Type, Optional, Union, Literal, overload
 from ._internal import (
     Utils as _Utils, 
     AnsiColor as _AnsiColor,
@@ -107,6 +107,14 @@ def progress_bar(
     end: Optional[str] = "", color: bool = True
 ) -> str:
     """Build a new progress bar."""
+    ...
+
+def strip_ansi(cls, text: str) -> str:
+    """Strip all ansi escape codes from the text."""
+    ...
+
+def get_size() -> Tuple[int, int]:
+    """Get the terminal size."""
     ...
 
 IOString: Type[_Terminal.IOString]
