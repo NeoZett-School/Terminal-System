@@ -88,7 +88,9 @@ def lookup(tag: str) -> Optional[_Terminal.Color]:
     """Lookup a color tag."""
     ...
 
-def log(level: Literal["INFO", "WARN", "ERROR"], *msg: object, color: bool = True) -> None:
+def log(
+        format: str = "[[level]] [msg]", level: Literal["INFO", "WARN", "ERROR"] = "INFO", *msg: object, time_format: str = "%H:%M", color: bool = True
+    ) -> None:
     """Log message with a provided level."""
     ...
 
