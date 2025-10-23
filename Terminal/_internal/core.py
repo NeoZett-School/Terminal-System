@@ -461,6 +461,7 @@ class Terminal:
     
     @staticmethod
     def clear(*, ansi: bool = False, flush: bool = True) -> None:
+        if Terminal.blocking: return
         if ansi:
             sys.stdout.write("\033[2J\033[H")
             if flush:
