@@ -57,4 +57,4 @@ class AnsiCursor:
     
     @classmethod
     def hide_cursor(cls) -> str:
-        return "\033[?251"
+        return "\033[?25l"
