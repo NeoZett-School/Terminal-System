@@ -592,7 +592,8 @@ class Terminal:
         
         if Terminal.blocking: return
         
-        Terminal.print(text, color=color)
+        sys.stdout.write(Terminal.format(text, end="\n", color=color)) # Adding the default newline
+        sys.stdout.flush()
     
     @staticmethod
     def space() -> None:
