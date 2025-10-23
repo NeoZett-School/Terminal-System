@@ -1,5 +1,6 @@
 from typing import Iterable, Tuple, List, Optional, Callable, Literal, Union, TypeVar, Any
 from .enums import Mode
+import datetime
 import colorama
 import signal
 import atexit
@@ -16,6 +17,16 @@ __all__ = (
 
 T = TypeVar("T", bound="Terminal.Color")
 ClearScreenArg = Union[bool, Tuple[bool, bool], Tuple[bool, bool, bool]]
+
+class Config:
+    class LOGGING:
+        LOG_FILE_PATH: Optional[str] = None
+        COLORS = {
+            "ERROR": "$red",
+            "WARN": "$yel",
+            "INFO": "$blu"
+        }
+    AUTO_DEINIT: bool = True
 
 class History: 
     formattings = []
@@ -136,6 +147,8 @@ class Terminal:
     pattern = r"(\$[a-z]{3})"
     _initialized = False
     _regex = None
+
+    _ansi_escape = re.compile(r'\x1b\[[0-9;]*m')
 
     class Simple:
         @staticmethod
@@ -368,11 +381,22 @@ class Terminal:
         
         def calc_index(self, has: int, need: int) -> int:
             return int((has/need) * self.length)
+    
+    @classmethod
+    def configure(cls, *, mode: Union[Mode, Literal["Single", "Multiple"]] = Mode.SINGLE, auto_deinit: bool = True, log_file_path: Optional[str] = None) -> None:
+        cls.set_env_mode(mode)
+        Config.AUTO_DEINIT = auto_deinit
+        Config.LOGGING.LOG_FILE_PATH = log_file_path
+        if not cls._initialized:
+            cls.init()
 
     @classmethod
     def init(cls) -> None:
         cls.colorama_init()
         cls.regex_init()
+        if Config.AUTO_DEINIT:
+            atexit.register(cleanup)
+            signal.signal(signal.SIGINT, signal_handler)
     
     @classmethod
     def deinit(cls) -> None:
@@ -551,30 +575,32 @@ class Terminal:
         sys.stdout.flush()
     
     @staticmethod
-    def log(level: Literal["INFO", "WARN", "ERROR"], *msg: object, color: bool = True) -> None:
-        prefix = f"[{level.upper()}]"
-        if color:
-            prefix = {
-                "INFO": "$blu",
-                "WARN": "$yel",
-                "ERROR": "$red"
-            }.get(level.upper(), "") + prefix + "$res"
-        Terminal.print(prefix, *msg, color=color)
+    def log(format: str = "[[level]] [msg]", level: Literal["INFO", "WARN", "ERROR"] = "INFO", *msg: object, time_format: str = "%H:%M", color: bool = True) -> None:
+        text = format.replace("[time]", datetime.datetime.now().strftime(time_format)).replace("[level]", Config.LOGGING.COLORS[level]+level+"$res" if color else level).replace("[msg]", " ".join([str(v) for v in msg]))
+        Terminal.print(text, color=color)
+
+        if not Config.LOGGING.LOG_FILE_PATH or not Terminal._initialized: return
+        
+        with open(Config.LOGGING.LOG_FILE_PATH, "a") as f:
+            f.write(Terminal.strip_ansi(Terminal._regex.sub('', text))+"\n")
     
     @staticmethod
     def space() -> None:
         Terminal.Simple.space()
+    
+    @classmethod
+    def strip_ansi(cls, text: str) -> str:
+        return cls._ansi_escape.sub('', text)
     
     @staticmethod
     def get_size() -> Tuple[int, int]:
         return os.get_terminal_size()
 
 def cleanup() -> None:
+    if not Config.AUTO_DEINIT: return
     Terminal.deinit()
 
 def signal_handler(sig, frame) -> None:
+    if not Config.AUTO_DEINIT: return
     cleanup()
-    sys.exit()
-
-atexit.register(cleanup)
-signal.signal(signal.SIGINT, signal_handler)
+    sys.exit(0)

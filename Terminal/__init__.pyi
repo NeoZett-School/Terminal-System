@@ -1,5 +1,13 @@
 from typing import Type, Optional, Union, Literal, overload
-from ._internal import Utils as _Utils, Builder as _Builder, FileSystem as _FileSystem, Terminal as _Terminal, Mode as _Mode
+from ._internal import (
+    Utils as _Utils, 
+    AnsiColor as _AnsiColor,
+    AnsiCursor as _AnsiCursor,
+    Builder as _Builder, 
+    FileSystem as _FileSystem, 
+    Terminal as _Terminal, 
+    Mode as _Mode
+)
 from ._internal.core import History as _History, Manager, ClearScreenArg
 
 Mode: Type[_Mode]
@@ -9,6 +17,8 @@ History: Type[_History]
 Builder: Type[_Builder]
 FileSystem: Type[_FileSystem]
 Utils: Type[_Utils]
+AnsiColor: Type[_AnsiColor]
+AnsiCursor: Type[_AnsiCursor]
 
 manager: Manager
 
@@ -111,6 +121,8 @@ class Module:
     Builder: Type[_Builder]
     FileSystem: Type[_FileSystem]
     Utils: Type[_Utils]
+    AnsiColor: Type[_AnsiColor]
+    AnsiCursor: Type[_AnsiCursor]
     manager: Manager
 
     IOString: Type[_Terminal.IOString]
