@@ -1,6 +1,8 @@
 from typing import Iterable, Tuple, List, Optional, Callable, Literal, Union, TypeVar, Any
 from .enums import Mode
 import colorama
+import signal
+import atexit
 import sys
 import os
 import re
@@ -374,8 +376,10 @@ class Terminal:
     
     @classmethod
     def deinit(cls) -> None:
+        sys.stdout.write('\033[0m')
         cls.colorama_deinit()
         cls.ColorKeys.clear()
+        cls._initialized = False
 
     @classmethod
     def colorama_init(cls) -> None:
@@ -560,3 +564,17 @@ class Terminal:
     @staticmethod
     def space() -> None:
         Terminal.Simple.space()
+    
+    @staticmethod
+    def get_size() -> Tuple[int, int]:
+        return os.get_terminal_size()
+
+def cleanup() -> None:
+    Terminal.deinit()
+
+def signal_handler(sig, frame) -> None:
+    cleanup()
+    sys.exit()
+
+atexit.register(cleanup)
+signal.signal(signal.SIGINT, signal_handler)

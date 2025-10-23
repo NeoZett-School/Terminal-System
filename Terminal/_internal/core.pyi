@@ -509,3 +509,8 @@ class Terminal:
     def space() -> None:
         """Simply print a space in the terminal."""
         ...
+    
+    @staticmethod
+    def get_size() -> Tuple[int, int]:
+        """Get the terminal size."""
+        ...

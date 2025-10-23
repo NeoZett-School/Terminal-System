@@ -1,5 +1,5 @@
 from typing import Type, Optional, Union, Literal, overload
-from ._internal import Builder as _Builder, FileSystem as _FileSystem, Terminal as _Terminal, Mode as _Mode
+from ._internal import Utils as _Utils, Builder as _Builder, FileSystem as _FileSystem, Terminal as _Terminal, Mode as _Mode
 from ._internal.core import History as _History, Manager, ClearScreenArg
 
 Mode: Type[_Mode]
@@ -8,6 +8,7 @@ Simple: Type[_Terminal.Simple]
 History: Type[_History]
 Builder: Type[_Builder]
 FileSystem: Type[_FileSystem]
+Utils: Type[_Utils]
 
 manager: Manager
 
@@ -109,6 +110,7 @@ class Module:
     History: Type[_History]
     Builder: Type[_Builder]
     FileSystem: Type[_FileSystem]
+    Utils: Type[_Utils]
     manager: Manager
 
     IOString: Type[_Terminal.IOString]
