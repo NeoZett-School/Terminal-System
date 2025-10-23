@@ -20,13 +20,13 @@ ClearScreenArg = Union[bool, Tuple[bool, bool], Tuple[bool, bool, bool]]
 
 class Config:
     class LOGGING:
-        LOG_FILE_PATH: Optional[str] = None
+        LOG_FILE_PATH = None
         COLORS = {
             "ERROR": "$red",
             "WARN": "$yel",
             "INFO": "$blu"
         }
-    AUTO_DEINIT: bool = True
+    AUTO_DEINIT = True
 
 class History: 
     formattings = []

@@ -9,6 +9,12 @@ import re
 T = TypeVar("T", bound="Terminal.Color")
 ClearScreenArg = Union[bool, Tuple[bool, bool], Tuple[bool, bool, bool]]
 
+class Config:
+    class LOGGING:
+        LOG_FILE_PATH: Optional[str]
+        COLORS: Dict[str, str]
+    AUTO_DEINIT: bool
+
 class History:
     formattings: List[str]
     inputs: List[str]
@@ -349,6 +355,11 @@ class Terminal:
             ...
     
     @classmethod
+    def configure(cls, *, mode: Union[Mode, Literal["Single", "Multiple"]] = Mode.SINGLE, auto_deinit: bool = True, log_file_path: Optional[str] = None) -> None:
+        """Configure the terminal."""
+        ...
+    
+    @classmethod
     def init(cls) -> None:
         """Initiate the terminal."""
         ...
@@ -502,13 +513,20 @@ class Terminal:
         ...
     
     @staticmethod
-    def log(level: Literal["INFO", "WARN", "ERROR"], *msg: object, color: bool = True) -> None:
+    def log(
+        format: str = "[[level]] [msg]", level: Literal["INFO", "WARN", "ERROR"] = "INFO", *msg: object, time_format: str = "%H:%M", color: bool = True
+    ) -> None:
         """Log message with a provided level."""
         ...
     
     @staticmethod
     def space() -> None:
         """Simply print a space in the terminal."""
+        ...
+    
+    @classmethod
+    def strip_ansi(cls, text: str) -> str:
+        """Strip all ansi escape codes from the text."""
         ...
     
     @staticmethod
