@@ -15,7 +15,7 @@ T = TypeVar("T", bound="Item")
 class Item:
     itype: ItemType
 
-    def __init__(self, path: Path, parent: Optional["Item"] = None):
+    def __init__(self, path: Path, parent: Optional["Item"] = None) -> None:
         self.path = path
         self.parent = parent
 
@@ -53,7 +53,7 @@ class Item:
 class File(Item):
     itype = ItemType.FILE
 
-    def __init__(self, path: Path, parent: Optional["Directory"] = None):
+    def __init__(self, path: Path, parent: Optional["Directory"] = None) -> None:
         super().__init__(path, parent)
         self.content: str = ""
         self.update()
@@ -76,7 +76,7 @@ class File(Item):
 class Directory(Item):
     itype = ItemType.DIRECTORY
 
-    def __init__(self, path: Path, parent: Optional["Directory"] = None):
+    def __init__(self, path: Path, parent: Optional["Directory"] = None) -> None:
         super().__init__(path, parent)
         self.directories: List["Directory"] = []
         self.files: List[File] = []
@@ -127,7 +127,7 @@ class Directory(Item):
 
 
 class FileManager:
-    def __init__(self, top: Directory):
+    def __init__(self, top: Directory) -> None:
         self.page = Builder()
         self.top = top
         self.current: Item = top

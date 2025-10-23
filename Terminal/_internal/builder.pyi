@@ -1,12 +1,68 @@
-from typing import Optional
+from typing import List, Optional
 from .core import ClearScreenArg
+
+class BuilderString:
+    content: List[str]
+    index: int
+
+    def __init__(self, *args: str) -> None:
+        ...
+
+    @property
+    def value(self) -> str:
+        """The current value."""
+    
+    @value.setter
+    def value(self, new: str) -> None:
+        ...
+    
+    def __str__(self) -> str:
+        ...
+    
+    def __getitem__(self, index: int) -> str:
+        ...
+    
+    def __setitem__(self, index: int, value: str) -> None:
+        ...
+    
+    def get(self, index: int) -> str:
+        """Get this index of content."""
+        ...
 
 class Builder:
     """Use the builder to build your page before you print it."""
-    
-    value: str
 
     def __init__(self, value: str = "") -> None:
+        ...
+    
+    def next(self) -> None:
+        """Move to the next page."""
+        ...
+    
+    def prev(self) -> None:
+        """Move to the previous page."""
+        ...
+    
+    def clear_all(self) -> None:
+        """Clear all pages."""
+        ...
+
+    @property
+    def value(self) -> str:
+        """The currently displayed value."""
+        ...
+    
+    @value.setter
+    def value(self, text: str) -> None:
+        ...
+    
+    @property
+    def index(self) -> int:
+        """The index of the content displayed."""
+        ...
+    
+    @index.setter
+    def index(self, new: int) -> None:
         ...
     
     def __str__(self) -> str:

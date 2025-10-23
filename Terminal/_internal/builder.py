@@ -3,9 +3,74 @@ from .core import Terminal, ClearScreenArg
 
 __all__ = ("Builder",)
 
+class BuilderString:
+    def __init__(self, *args: str) -> None:
+        self.content = list(args)
+        self.index = 0
+
+    @property
+    def value(self) -> str:
+        return self.content[self.index]
+    
+    @value.setter
+    def value(self, new: str) -> None:
+        self.content[self.index] = new
+    
+    def __str__(self) -> str:
+        return self.content[self.index]
+    
+    def __len__(self) -> int:
+        return len(self.content)
+    
+    def __getitem__(self, index: int) -> str:
+        return self.content[index]
+    
+    def __setitem__(self, index: int, value: str) -> None:
+        self.content[index] = value
+    
+    def _create_space(self) -> None:
+        self.content.append("")
+    
+    def get(self, index: int) -> str:
+        return self.content[index]
+    
+    def clear(self) -> None:
+        self.content.clear()
+
 class Builder:
     def __init__(self, value: str = "") -> None:
-        self.value = value
+        self._content = BuilderString(value)
+    
+    def next(self) -> None:
+        self.index += 1
+    
+    def prev(self) -> None:
+        if self.index > 0:
+            self.index -= 1
+        
+    def clear_all(self) -> None:
+        self._content.clear()
+        self.index = 0
+    
+    @property
+    def value(self) -> str:
+        return self._content.value
+    
+    @value.setter
+    def value(self, text: str) -> None:
+        self._content.value = text
+    
+    @property
+    def index(self) -> int:
+        return self._content.index
+    
+    @index.setter
+    def index(self, new: int) -> None:
+        if new < 0:
+            raise ValueError("Builder index cannot be negative.")
+        self._content.index = new
+        while len(self._content) <= new:
+            self._content._create_space()
     
     def __str__(self) -> str:
         return self.value

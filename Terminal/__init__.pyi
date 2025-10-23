@@ -101,3 +101,16 @@ def progress_bar(
 IOString: Type[_Terminal.IOString]
 AnimatedString: Type[_Terminal.AnimatedString]
 ProgressBar: Type[_Terminal.ProgressBar]
+
+class Module:
+    Mode: Type[_Mode]
+    Terminal: Type[_Terminal]
+    Simple: Type[_Terminal.Simple]
+    History: Type[_History]
+    Builder: Type[_Builder]
+    FileSystem: Type[_FileSystem]
+    manager: Manager
+
+    IOString: Type[_Terminal.IOString]
+    AnimatedString: Type[_Terminal.AnimatedString]
+    ProgressBar: Type[_Terminal.ProgressBar]

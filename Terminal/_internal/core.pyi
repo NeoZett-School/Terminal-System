@@ -2,7 +2,7 @@
 The core features for the terminal.
 """
 
-from typing import Iterable, Tuple, List, Dict, Optional, Callable, Literal, Union, Self, TypeVar, Any, overload
+from typing import Iterable, Tuple, List, Dict, Optional, Callable, Literal, Union, TypeVar, Any, overload
 from .enums import Mode
 import re
 
@@ -31,7 +31,7 @@ class Manager:
         class GlobalInterface:
             """Public interface for an active environment context."""
 
-            def __init__(self, env: "Manager.Environment") -> Self:
+            def __init__(self, env: "Manager.Environment") -> None:
                 ...
             
             @property
@@ -71,7 +71,7 @@ class Manager:
             manager: "Manager", 
             prefix: Optional["Terminal.Color"] = None, 
             suffix: Optional["Terminal.Color"] = None
-        ) -> Self: ...
+        ) -> None: ...
 
         @property
         def prefix(self) -> str:
@@ -105,7 +105,7 @@ class Manager:
             """Reset this environment."""
             ...
     
-    def __init__(self) -> Self:
+    def __init__(self) -> None:
         ...
     
     @property
@@ -170,7 +170,7 @@ class Terminal:
         ansi: str
         tag: Optional[str]
 
-        def __init__(self, *ansi: str, tag: Optional[str] = None) -> Self:
+        def __init__(self, *ansi: str, tag: Optional[str] = None) -> None:
             ...
 
         @classmethod
@@ -229,7 +229,7 @@ class Terminal:
 
         value: str
 
-        def __init__(self, value: str = "") -> Self:
+        def __init__(self, value: str = "") -> None:
             ...
         
         def __str__(self) -> str:
@@ -271,7 +271,7 @@ class Terminal:
         frames: List[str]
         index: int
 
-        def __init__(self, frames: List[str], init: int = 0) -> Self:
+        def __init__(self, frames: List[str], init: int = 0) -> None:
             ...
         
         @property
@@ -336,7 +336,7 @@ class Terminal:
         token: str
         length: int
 
-        def __init__(self, formatted_string: str, token: str, length: int) -> Self:
+        def __init__(self, formatted_string: str, token: str, length: int) -> None:
             ...
         
         def generate(self) -> None:

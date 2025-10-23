@@ -1,4 +1,4 @@
-from typing import Iterable, Tuple, List, Optional, Callable, Literal, Union, Self, TypeVar, Any
+from typing import Iterable, Tuple, List, Optional, Callable, Literal, Union, TypeVar, Any
 from .enums import Mode
 import colorama
 import sys
@@ -22,7 +22,7 @@ class History:
 class Manager:
     class Environment:
         class GlobalInterface: 
-            def __init__(self, env: "Manager.Environment") -> Self:
+            def __init__(self, env: "Manager.Environment") -> None:
                 self._env = env
             
             @property
@@ -55,7 +55,7 @@ class Manager:
             manager: "Manager", 
             prefix: Optional["Terminal.Color"] = None, 
             suffix: Optional["Terminal.Color"] = None
-        ) -> Self:
+        ) -> None:
             self.manager = manager
             self.prefix_color = prefix
             self.suffix_color = suffix
@@ -95,7 +95,7 @@ class Manager:
             self.formatted = []
             self.active = False
 
-    def __init__(self) -> Self:
+    def __init__(self) -> None:
         self.env_stack = []
         self.mode = Mode.SINGLE
     
@@ -113,10 +113,10 @@ class Manager:
             return text
         match self.mode:
             case Mode.SINGLE:
-                index = -1
-                while self.env_stack[index].active == False:
-                    index -= 1
-                text = self.env_stack[index].format(text)
+                for env in reversed(self.env_stack):
+                    if env.active:
+                        text = env.format(text)
+                        break
             case Mode.MULTIPLE:
                 for env in self.env_stack:
                     if not env.active: continue
@@ -158,7 +158,7 @@ class Terminal:
             os.system("cls" if os.name == "nt" else "clear")
     
     class Color:
-        def __init__(self, *ansi: str, tag: Optional[str] = None) -> Self:
+        def __init__(self, *ansi: str, tag: Optional[str] = None) -> None:
             self.ansi = "".join(ansi)
             self.tag = tag
 
@@ -245,7 +245,7 @@ class Terminal:
             raise KeyError(f"Invalid mode {mode!r} for Color lookup")
     
     class IOString: 
-        def __init__(self, value: str = "") -> Self:
+        def __init__(self, value: str = "") -> None:
             self.value = value
         
         def __str__(self) -> str:
@@ -289,7 +289,7 @@ class Terminal:
             Terminal.print(self, sep=sep, end=end, flush=flush, color=color, clear_screen=clear_screen, prefix=before + sep, suffix=sep + after)
     
     class AnimatedString(IOString): 
-        def __init__(self, frames: List[str], init: int = 0) -> Self:
+        def __init__(self, frames: List[str], init: int = 0) -> None:
             self.frames = frames
             self.index = init
         
@@ -351,7 +351,7 @@ class Terminal:
             self.frames[self.index] = ""
 
     class ProgressBar(AnimatedString):
-        def __init__(self, formatted_string: str, token: str, length: int) -> Self:
+        def __init__(self, formatted_string: str, token: str, length: int) -> None:
             super().__init__(["[Progress bar] An error has likely occured. Please review the code once again."])
             self.formatted_string = formatted_string
             self.token = token

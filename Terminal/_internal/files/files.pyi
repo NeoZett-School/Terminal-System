@@ -9,7 +9,7 @@ class Item(Protocol):
     path: Path
     parent: Optional["Item"]
 
-    def __init__(self, path: Path, parent: Optional["Item"] = None) -> Self:
+    def __init__(self, path: Path, parent: Optional["Item"] = None) -> None:
         ...
     
     @classmethod
@@ -44,7 +44,7 @@ class Item(Protocol):
 class File(Item):
     content: str
 
-    def __init__(self, path: Path, parent: Optional["Directory"] = None) -> Self:
+    def __init__(self, path: Path, parent: Optional["Directory"] = None) -> None:
         ...
 
     @staticmethod
@@ -65,7 +65,7 @@ class Directory(Item):
     directories: List["Directory"]
     files: List[File]
 
-    def __init__(self, path: Path, parent: Optional["Directory"] = None) -> Self:
+    def __init__(self, path: Path, parent: Optional["Directory"] = None) -> None:
         ...
 
     @staticmethod
@@ -96,7 +96,7 @@ class FileManager:
 
     input_field: Terminal.IOString
     
-    def __init__(self, top: Directory) -> Self:
+    def __init__(self, top: Directory) -> None:
         ...
     
     def print(self) -> None:
