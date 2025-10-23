@@ -131,6 +131,7 @@ class Terminal:
     ColorKeys: Dict[str, "Terminal.Color"]
     manager: Manager
     pattern: str
+    blocking: bool
     _initialized: bool
     _regex: Optional[re.Pattern]
 

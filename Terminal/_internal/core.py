@@ -145,6 +145,7 @@ class Terminal:
     ColorKeys = {}
     manager = Manager()
     pattern = r"(\$[a-z]{3})"
+    blocking = False # Enable blocking to allow the system to run, but never print anything onto screen
     _initialized = False
     _regex = None
 
@@ -545,6 +546,7 @@ class Terminal:
             elif isinstance(clear_screen, bool):
                 Terminal.clear(ansi=False)
         text = Terminal.format(*values, sep=sep, end=end, color=color, prefix=prefix, suffix=suffix)
+        if Terminal.blocking: return
         sys.stdout.write(text)
         if flush:
             sys.stdout.flush()
@@ -560,6 +562,7 @@ class Terminal:
         input_text: Optional[str] = "",
         n: int = -1
     ) -> str:
+        if Terminal.blocking: return ""
         if prompt: # We may only use input_text
             Terminal.print(*prompt, sep=sep, end=end, flush=flush, color=color, clear_screen=clear_screen)
         if n == -1:
@@ -571,11 +574,13 @@ class Terminal:
     
     @classmethod
     def set_color(cls, color: Color) -> None:
+        if Terminal.blocking: return
         sys.stdout.write(str(color))
         sys.stdout.flush()
     
     @staticmethod
     def log(format: str = "[[level]] [msg]", level: Literal["INFO", "WARN", "ERROR"] = "INFO", *msg: object, time_format: str = "%H:%M", color: bool = True) -> None:
+        if Terminal.blocking: return
         text = format.replace("[time]", datetime.datetime.now().strftime(time_format)).replace("[level]", Config.LOGGING.COLORS[level]+level+"$res" if color else level).replace("[msg]", " ".join([str(v) for v in msg]))
         Terminal.print(text, color=color)
 
@@ -586,6 +591,7 @@ class Terminal:
     
     @staticmethod
     def space() -> None:
+        if Terminal.blocking: return
         Terminal.Simple.space()
     
     @classmethod

@@ -125,7 +125,6 @@ class Directory(Item):
                 if file:
                     self.files.append(file)
 
-
 class FileManager:
     def __init__(self, top: Directory) -> None:
         self.page = Builder()
