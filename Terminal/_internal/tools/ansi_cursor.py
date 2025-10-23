@@ -41,7 +41,7 @@ class AnsiCursor:
     
     @classmethod
     def erase_line(cls, n: Literal[0, 1, 2] = 2) -> str:
-        return "\033[nK"
+        return f"\033[{n}K"
     
     @classmethod
     def erase_screen(cls) -> str:
