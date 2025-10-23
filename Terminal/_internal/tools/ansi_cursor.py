@@ -5,31 +5,31 @@ __all__ = ("AnsiCursor",)
 class AnsiCursor:
     @classmethod
     def cursor_to(cls, row: int, col: int) -> str:
-        return f"\033[{row};{col}H]"
+        return f"\033[{row};{col}H"
     
     @classmethod
     def cursor_up(cls, n: int = 1) -> str:
-        return f"\033[{n}A]"
+        return f"\033[{n}A"
     
     @classmethod
     def cursor_down(cls, n: int = 1) -> str:
-        return f"\033[{n}B]"
+        return f"\033[{n}B"
     
     @classmethod
     def cursor_forward(cls, n: int = 1) -> str:
-        return f"\033[{n}C]"
+        return f"\033[{n}C"
     
     @classmethod
     def cursor_backward(cls, n: int = 1) -> str:
-        return f"\033[{n}D]"
+        return f"\033[{n}D"
     
     @classmethod
     def cursor_next_line(cls, n: int = 1) -> str:
-        return f"\033[{n}E]"
+        return f"\033[{n}E"
     
     @classmethod
     def cursor_prev_line(cls, n: int = 1) -> str:
-        return f"\033[{n}F]"
+        return f"\033[{n}F"
     
     @classmethod
     def save_cursor(cls) -> str:
