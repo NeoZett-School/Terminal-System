@@ -1,3 +1,3 @@
 import Terminal
 
-Terminal.log("INFO", "Hi!")
+Terminal.log("Hi!", level="INFO")

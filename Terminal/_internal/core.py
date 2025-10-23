@@ -581,7 +581,7 @@ class Terminal:
     
     @staticmethod
     def log(
-        format: str = "[[level]] [msg]", level: Literal["INFO", "WARN", "ERROR"] = "INFO", *msg: object, time_format: str = "%H:%M", color: bool = True
+        *msg: object, format: str = "[[level]] [msg]", level: Literal["INFO", "WARN", "ERROR"] = "INFO", time_format: str = "%H:%M", color: bool = True
     ) -> None:
         text = format.replace("[time]", datetime.datetime.now().strftime(time_format)).replace("[level]", Config.LOGGING.COLORS[level]+level+"$res" if color else level).replace("[msg]", " ".join([str(v) for v in msg]))
 

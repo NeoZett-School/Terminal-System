@@ -99,9 +99,9 @@ class Module:
     
     @staticmethod
     def log(
-        format: str = "[[level]] [msg]", level: Literal["INFO", "WARN", "ERROR"] = "INFO", *msg: object, time_format: str = "%H:%M", color: bool = True
+        *msg: object, format: str = "[[level]] [msg]", level: Literal["INFO", "WARN", "ERROR"] = "INFO", time_format: str = "%H:%M", color: bool = True
     ) -> None:
-        Terminal.log(format, level, *msg, time_format=time_format, color=color)
+        Terminal.log(*msg, format=format, level=level, time_format=time_format, color=color)
     
     @staticmethod
     def new_env(prefix: Optional[Terminal.Color] = None, suffix: Optional[Terminal.Color] = None) -> Manager.Environment:
