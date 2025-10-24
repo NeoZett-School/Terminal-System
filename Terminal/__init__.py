@@ -127,6 +127,9 @@ class Module:
 
     def strip_ansi(cls, text: str) -> str:
         return Terminal.strip_ansi(text)
+    
+    def remove_tags(cls, text: str) -> str:
+        return Terminal.remove_tags(text)
 
     def get_size() -> Tuple[int, int]:
         return Terminal.get_size()

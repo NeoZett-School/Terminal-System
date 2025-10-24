@@ -115,6 +115,10 @@ def strip_ansi(cls, text: str) -> str:
     """Strip all ansi escape codes from the text."""
     ...
 
+def remove_tags(cls, text: str) -> str:
+    """Remove all tags from the text."""
+    ...
+
 def get_size() -> Tuple[int, int]:
     """Get the terminal size."""
     ...

@@ -529,6 +529,11 @@ class Terminal:
         """Strip all ansi escape codes from the text."""
         ...
     
+    @classmethod
+    def remove_tags(cls, text: str) -> str:
+        """Remove all tags from the text."""
+        ...
+    
     @staticmethod
     def get_size() -> Tuple[int, int]:
         """Get the terminal size."""

@@ -586,7 +586,7 @@ class Terminal:
         text = format.replace("[time]", datetime.datetime.now().strftime(time_format)).replace("[level]", Config.LOGGING.COLORS[level]+level+"$res" if color else level).replace("[msg]", " ".join([str(v) for v in msg]))
 
         if Config.LOGGING.LOG_FILE_PATH and Terminal._initialized: 
-            clean_text = Terminal.strip_ansi(Terminal._regex.sub('', text))+"\n"
+            clean_text = Terminal.strip_ansi(Terminal.remove_tags(text))+"\n"
             with open(Config.LOGGING.LOG_FILE_PATH, "a") as f:
                 f.write(clean_text)
         
@@ -603,6 +603,10 @@ class Terminal:
     @classmethod
     def strip_ansi(cls, text: str) -> str:
         return cls._ansi_escape.sub('', text)
+    
+    @classmethod
+    def remove_tags(cls, text: str) -> str:
+        return cls._regex.sub('', text)
     
     @staticmethod
     def get_size() -> Tuple[int, int]:
