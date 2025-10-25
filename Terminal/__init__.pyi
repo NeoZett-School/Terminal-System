@@ -139,6 +139,7 @@ class Module:
     Utils: Type[_Utils]
     AnsiColor: Type[_AnsiColor]
     AnsiCursor: Type[_AnsiCursor]
+    Pages: _Pages
     manager: Manager
 
     IOString: Type[_Terminal.IOString]
