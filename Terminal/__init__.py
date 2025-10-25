@@ -3,6 +3,8 @@ The Terminal provides all features you will ever need when building your CLI app
 """
 
 from typing import Tuple, Optional, Literal, Union
+
+from . import core
 from ._internal import (
     Utils, 
     AnsiColor, 
@@ -14,7 +16,7 @@ from ._internal import (
     Pages
 )
 from ._internal.core import History, Manager, ClearScreenArg
-from . import ansi, core, pages, files, builder
+from . import ansi, builder, pages, files, tools
 import sys
 
 class Module:
@@ -142,6 +144,7 @@ class Module:
     core = core
     files = files
     builder = builder
+    tools = tools
 
     terminal_init()
 
