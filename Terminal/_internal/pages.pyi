@@ -5,14 +5,6 @@ The pages will allow you to make the application adaptive, modular, and dynamic.
 from typing import List, Dict, Optional, Type, Protocol 
 from .builder import Builder
 
-class Pages:
-    Page: Type["Page"]
-    SubPage: Type["SubPage"]
-    MenuPage: Type["MenuPage"]
-    PageRegistry: Type["PageRegistry"]
-    Manager: Type["Manager"]
-    Application: Type["Application"]
-
 class Page(Protocol):
     """A page lets you create modular sections of your application."""
     app: "Application"
@@ -140,3 +132,14 @@ class Application:
     def quit(self) -> None:
         """Quit the application."""
         ...
+
+class Public:
+    """
+    The pages will allow you to make the application adaptive, modular, and dynamic.
+    """
+    Page: Type["Page"]
+    SubPage: Type["SubPage"]
+    MenuPage: Type["MenuPage"]
+    PageRegistry: Type["PageRegistry"]
+    Manager: Type["Manager"]
+    Application: Type["Application"]

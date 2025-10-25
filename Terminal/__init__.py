@@ -14,6 +14,7 @@ from ._internal import (
     Pages
 )
 from ._internal.core import History, Manager, ClearScreenArg
+from . import ansi, core, pages, files, builder
 import sys
 
 class Module:
@@ -135,6 +136,12 @@ class Module:
     IOString = Terminal.IOString
     AnimatedString = Terminal.AnimatedString
     ProgressBar = Terminal.ProgressBar
+
+    pages = pages
+    ansi = ansi
+    core = core
+    files = files
+    builder = builder
 
     terminal_init()
 

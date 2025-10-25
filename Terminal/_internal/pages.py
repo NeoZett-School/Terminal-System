@@ -5,7 +5,7 @@ from .tools import Utils
 import sys
 
 __all__ = (
-    "Pages",
+    "Public",
     "Page",
     "SubPage",
     "MenuPage",
@@ -13,14 +13,6 @@ __all__ = (
     "Manager",
     "Application",
 )
-
-class Pages:
-    Page = Page
-    SubPage = SubPage
-    MenuPage = MenuPage
-    PageRegistry = PageRegistry
-    Manager = Manager
-    Application = Application
 
 class Page(Protocol):
     tag = "UnTagged"
@@ -148,3 +140,11 @@ class Application:
     
     def quit(self) -> None:
         self.active = False
+
+class Public:
+    Page = Page
+    SubPage = SubPage
+    MenuPage = MenuPage
+    PageRegistry = PageRegistry
+    Manager = Manager
+    Application = Application
