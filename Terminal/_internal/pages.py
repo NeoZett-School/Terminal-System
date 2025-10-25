@@ -5,13 +5,22 @@ from .tools import Utils
 import sys
 
 __all__ = (
-    "Page", 
-    "SubPage", 
-    "MenuPage", 
-    "PageRegistry", 
+    "Pages",
+    "Page",
+    "SubPage",
+    "MenuPage",
+    "PageRegistry",
     "Manager",
     "Application",
 )
+
+class Pages:
+    Page = Page
+    SubPage = SubPage
+    MenuPage = MenuPage
+    PageRegistry = PageRegistry
+    Manager = Manager
+    Application = Application
 
 class Page(Protocol):
     tag = "UnTagged"

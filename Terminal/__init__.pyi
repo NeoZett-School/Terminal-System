@@ -20,7 +20,7 @@ FileSystem: Type[_FileSystem]
 Utils: Type[_Utils]
 AnsiColor: Type[_AnsiColor]
 AnsiCursor: Type[_AnsiCursor]
-Pages: _Pages
+Pages: Type[_Pages]
 
 manager: Manager
 
